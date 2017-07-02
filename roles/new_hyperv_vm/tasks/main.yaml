@@ -1,0 +1,5 @@
+---
+- name: Check whether SetupFiles VHDX exists on HOST
+  win_find:
+    paths: << setup_vhdx_path >>
+    patterns: ['<< setup_vhdx_file >>']

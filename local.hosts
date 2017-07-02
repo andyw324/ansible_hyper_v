@@ -1,0 +1,11 @@
+# file: local.hosts
+
+[windows-servers]
+192.168.0.27
+
+[local-windows-svr]
+192.168.0.30
+
+#[localhost]
+#localhost
+vagrant@vagran
