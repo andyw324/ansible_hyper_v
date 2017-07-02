@@ -1,5 +1,13 @@
 ---
-- name: Check whether SetupFiles VHDX exists on HOST
-  win_find:
-    paths: << setup_vhdx_path >>
-    patterns: ['<< setup_vhdx_file >>']
+#- name: Check whether SetupFiles VHDX exists on HOST (win_find)
+#  win_find:
+#    paths: 'C:\users\ABCD Family Admin\Documents\Hyper-V'
+#    patterns: 'SetupFile.vhdx'
+
+- name: Check whether SetupFiles VHDX exists on HOST (win_command)
+  win_command: Powershell.exe Test-Path 'C:\users\ABCD Family Admin\Documents\Hyper-V\SetupFile.vhdx'
+  register: result
+  #register: PowerShell.exe_out
+  
+- debug:
+    var: result.stdout_lines
