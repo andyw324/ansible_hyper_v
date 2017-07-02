@@ -1,6 +1,6 @@
 ---
 - hosts: local-windows-svr
   roles:
-    - { role: new_hyperv_vm,
+    - { role: ../roles/new_hyperv_vm,
         setup_vhdx_file : 'SetupFiles.vhdx',
         setup_vhdx_path : '"C:\users\ABCD Family Admin\Documents\Hyper-V""' }
