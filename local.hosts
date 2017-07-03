@@ -6,5 +6,5 @@
 [local-windows-svr]
 192.168.0.30
 
-#[localhost]
-#localhost
+[localhost]
+localhost

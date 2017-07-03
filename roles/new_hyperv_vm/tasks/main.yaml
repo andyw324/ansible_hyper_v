@@ -5,9 +5,31 @@
 #    patterns: 'SetupFile.vhdx'
 
 - name: Check whether SetupFiles VHDX exists on HOST (win_command)
-  win_command: Powershell.exe Test-Path 'C:\users\ABCD Family Admin\Documents\Hyper-V\SetupFile.vhdx'
+  win_command: Powershell.exe Test-Path '{{ setup_vhdx_full_file_path }}'
   register: result
   #register: PowerShell.exe_out
   
+- set_fact:
+    vhdx_exists: "{{ result.stdout_lines[0] }}"
+
 - debug:
-    var: result.stdout_lines
+    msg: "{{ vhdx_exists }}"
+
+- debug:
+    msg: "VHDX in {{ setup_vhdx_full_file_path }} not found - will create new one (vhdx_exists == false)"
+  when: not vhdx_exists
+
+- debug:
+    msg: "VHDX in {{ setup_vhdx_full_file_path }} found - no need to create a new one (vhdx_exists == true)"
+  when: vhdx_exists == true
+
+- name: Copying ps script to target host
+  win_copy:
+    src: files/temp
+    dest: 'C:\ansible_temp'
+    remote_src: False
+  when: not vhdx_exists
+
+- name: Creating new SetupFiles VHDX
+  win_command: PowerShell.exe "C:\ansible_temp\temp\ps-script\CreateSetupVHDX.ps1 -Path '{{ setup_vhdx_full_file_path }}' -DriveLetter Z"
+  when: not vhdx_exists

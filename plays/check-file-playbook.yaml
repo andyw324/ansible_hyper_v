@@ -4,4 +4,4 @@
     - { role: ../roles/new_hyperv_vm,
         setup_vhdx_file: 'SetupFile.vhdx',
         setup_vhdx_path: 'C:\users\ABCD Family Admin\Documents\Hyper-V',
-        setup_vhdx_full_file_path: 'C:\users\ABCD Family Admin\Documents\Hyper-V\SetupFile.vhdx' }
+        setup_vhdx_full_file_path: 'C:\users\ABCD Family Admin\Documents\Hyper-V\SetupFiles.vhdx' }
