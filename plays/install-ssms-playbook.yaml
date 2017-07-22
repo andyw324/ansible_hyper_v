@@ -3,6 +3,5 @@ hosts: mac-windows
 gather-facts: no
 tasks:
   - name: Test task
-    win_command: dir C:
+    win_command: dir 'C:'
 
-    
