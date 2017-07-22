@@ -8,3 +8,6 @@
 
 [localhost]
 localhost
+
+[mac-windows]
+10.0.1.3

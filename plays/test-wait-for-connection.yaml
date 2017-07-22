@@ -1,0 +1,4 @@
+---
+- hosts: mac-windows
+  tasks:
+    - wait_for_connection:
