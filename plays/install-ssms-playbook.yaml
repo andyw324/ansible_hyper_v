@@ -1,6 +1,6 @@
 ---
 - hosts: mac-windows
-  gather-facts: no
+  gather_facts: no
   tasks:
     - name: Test task
       win_command: dir 'C:'
