@@ -3,5 +3,6 @@
   gather_facts: no
   tasks:
     - name: Test task
-      win_command: cmd dir 'C:'
+      # win_command: cmd C:\Users\Administrator\Downloads\SSDT\SSDTSetup.exe INSTALLALL=1 /q /norestart
+      win_command: cmd /c start /wait C:\Users\Administrator\Downloads\SSDT\SSDTSetup.exe /?
 
