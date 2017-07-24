@@ -2,7 +2,11 @@
 - hosts: mac-windows
   gather_facts: no
   tasks:
-    - name: Test task
-      # win_command: cmd C:\Users\Administrator\Downloads\SSDT\SSDTSetup.exe INSTALLALL=1 /q /norestart
-      win_command: cmd /c start /wait C:\Users\Administrator\Downloads\SSDT\SSDTSetup.exe /?
-
+    - name: Install SSDT
+      win_command: cmd /c start /wait C:\Users\Administrator\Downloads\SSDT\SSDTSetup.exe INSTALLALL=1 /q /norestart
+      # win_command: cmd /c start /wait C:\Users\Administrator\Downloads\SSDT\SSDTSetup.exe /?
+    - name: install SSMS
+      win_command: cmd /c start /wait C:\Users\Administrator\Downloads\SSMS-Setup-ENU.exe /quiet /install /norestart
+    - name: Restart server
+      win_reboot:
+        shutdown_timeout_sec = 30
