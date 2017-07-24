@@ -8,5 +8,5 @@
     - name: install SSMS
       win_command: cmd /c start /wait C:\Users\Administrator\Downloads\SSMS-Setup-ENU.exe /quiet /install /norestart
     - name: Restart server
-      win_reboot:
-        shutdown_timeout_sec = 30
+    - win_reboot:
+        shutdown_timeout_sec: 30
