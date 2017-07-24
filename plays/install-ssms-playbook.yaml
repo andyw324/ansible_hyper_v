@@ -2,6 +2,37 @@
 - hosts: mac-windows
   gather_facts: no
   tasks:
+    - name: Generate autorun script to install DotNet update
+      win_command: PowerShell C:\Users\Administrator\Downloads\InstallDotNet.ps1
+    - name: Wait for vM to restart
+      wait_for_connection:
+        delay: 60
+        timeout: 600
+    - name: wait for dotnet install to complete
+      win_command: PowerShell -Command " & {(Get-ItemProperty 'HKLM:\Software\Microsoft\Virtual Machine\Guest' ).DotNetInstallStatus}"
+      register: dot_net_install_status
+      until: dot_net_install_status.stdout.find("Complete") != -1
+      retries: 720
+      delay: 5
+
+    - name: Restart guest VM and wait for it to restart
+      win_reboot:
+        shutdown_timeout_sec: 1800
+        reboot_timeout_sec: 1800
+
+    - name: check outcome of DotNet Install by looking for a "Success" on the second line of the install summary log
+      win_command: PowerShell -Command " & {(Select-string -InputObject (Get-content -Path C:\dotnet_log.html)[-2] -Pattern Success).count -gt 0}"
+      register: dot_net_install_outcome
+
+    - debug:
+        msg: "DotNet installation was successful"
+      when: dot_net_install_outcome.stdout.find('true') != -1
+
+    - debug:
+        msg: "DotNet install failed - check logs"
+      when: dot_net_install_outcome.stdout.find('false') != -1
+
+
     - name: Install SSDT
       win_command: cmd /c start /wait C:\Users\Administrator\Downloads\SSDT\SSDTSetup.exe INSTALLALL=1 /q /norestart
       # win_command: cmd /c start /wait C:\Users\Administrator\Downloads\SSDT\SSDTSetup.exe /?
