@@ -1,0 +1,4 @@
+ansible_user: test-group
+ansible_password: Password123!
+var_set: test-group
+on_dom: False
