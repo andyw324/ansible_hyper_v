@@ -5,16 +5,20 @@
 #        group: test-group
 #        ansible_user: test-user
 
-    - add_host:
-        name: item.hostname #test-host
-        group: item.group #test-group-dom
-        ansible_user: item.ansible_user #test-user-dom
-        on_dom: item.on_dom
-      with_items: "{{ host_to_use }}" 
-
     - debug:
-        var: item.hostname
+        var: item.host.hostname  #item.hostname #figure our way to correctly refer to dictionary value
       with_items: "{{ host_to_use }}"
+
+    - add_host: 
+        name: "{{ item.host.hostname }}"
+        group: "{{ item.host.group }}"
+        ansible_user: "{{ item.host.ansible_user }}"
+        on_dom: "{{ item.host.on_dom }}"
+      with_items: "{{ host_to_use }} "
+
+#    - debug:
+#        var: item.hostname
+#      with_items: "{{ host_to_use }}"
 
 - hosts: test-servers
   gather_facts: no
@@ -26,14 +30,14 @@
         - '{{ inventory_hostname }}'
         - '{{ var_set }}'
         - '{{ ansible_password }}'
-
-- hosts: test-host
-  gather_facts: no
-  tasks:
-    - debug:
-        var: item
-      with_items:
-        - '{{ ansible_user }}'
-        - '{{ inventory_hostname }}'
-        - '{{ var_set }}'
-        - '{{ ansible_password }}'
+      when: on_dom
+#- hosts: test-host
+#  gather_facts: no
+#  tasks:
+#    - debug:
+#        var: item
+#      with_items:
+#        - '{{ ansible_user }}'
+#        - '{{ inventory_hostname }}'
+#        - '{{ var_set }}'
+#        - '{{ ansible_password }}'
