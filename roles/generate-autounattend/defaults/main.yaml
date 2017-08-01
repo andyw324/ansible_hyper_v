@@ -1,4 +1,4 @@
 ---
 stuff: testcase
 hostname: win2012server
-ip address: 10.0.1.3
+ip_address: 10.0.1.3
