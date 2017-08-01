@@ -1,4 +1,4 @@
 ---
-hosts: mac-windows
-roles:
-  - generate-autounattend
+- hosts: mac-windows
+  roles:
+    - generate-autounattend
