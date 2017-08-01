@@ -1,0 +1,10 @@
+---
+#- name: Check whether SetupFiles VHDX exists on HOST (win_find)
+#  win_find:
+#    paths: 'C:\users\ABCD Family Admin\Documents\Hyper-V'
+#    patterns: 'SetupFile.vhdx'
+
+- name: create template file
+  template:
+    src: autounattend.j2
+    dest: C:\autounattend.out
