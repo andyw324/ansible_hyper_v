@@ -3,6 +3,6 @@
   tasks:
     - debug:
         var: item
-      with_item: disks
+      with_items: disks
   roles:
     - generate-autounattend
