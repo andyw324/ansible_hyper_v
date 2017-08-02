@@ -5,7 +5,7 @@
 #    patterns: 'SetupFile.vhdx'
 
 - debug:
-    var: item[disk]
+    var: item['disk'].label
   with_items: "{{ disks }}"
 - name: create template file
   template:
