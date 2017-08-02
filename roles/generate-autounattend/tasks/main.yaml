@@ -5,7 +5,7 @@
 #    patterns: 'SetupFile.vhdx'
 
 - debug:
-    var: item
+    var: item[0]
   with_items: "{{ disks }}"
 - name: create template file
   template:
