@@ -5,42 +5,48 @@ ip_address: 10.0.1.3
 
 
 disks:
-  - OS:
+  - disk:
+      label: OS
       size: 50GB
       block_size: 32MB
       sector_size: 512
       allocation_unit_size: 4KB
       drive_letter: C
       bootable: true
-  - InstallData:
+  - disk:
+      label: InstallData
       size: 10GB
       block_size: 32MB
       sector_size: 512
       allocation_unit_size: 64KB
       drive_letter: I
       bootable: false
-  - Data:
+  - disk:
+      label: Data
       size: 5GB
       block_size: 32MB
       sector_size: 512
       allocation_unit_size: 64KB
       drive_letter: D
       bootable: false
-  - Logs:
+  - disk:
+      label: Logs
       size: 5GB
       block_size: 32MB
       sector_size: 512
       allocation_unit_size: 4KB
       drive_letter: L
       bootable: false
-  - TempDB:
+  - disk:
+      label: TempDB
       size: 5GB
       block_size: 32MB
       sector_size: 512
       allocation_unit_size: 64KB
       drive_letter: E
       bootable: false
-  - Backup:
+  - disk:
+      label: Backup
       size: 5GB
       block_size: 32MB
       sector_size: 512
