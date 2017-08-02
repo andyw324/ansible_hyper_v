@@ -1,8 +1,4 @@
 ---
 - hosts: mac-windows
-  tasks:
-    - debug:
-        var: item
-      with_items: '{{ disks }}'
   roles:
     - generate-autounattend

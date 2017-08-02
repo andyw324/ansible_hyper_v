@@ -4,6 +4,9 @@
 #    paths: 'C:\users\ABCD Family Admin\Documents\Hyper-V'
 #    patterns: 'SetupFile.vhdx'
 
+- debug:
+    var: item
+  with_items: "{{ disks }}"
 - name: create template file
   template:
     src: autounattend.j2
