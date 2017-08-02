@@ -15,7 +15,7 @@
 [[--DiskConfig--]]
                 {% for disk in disks %}
                 <Disk wcm:action="add">
-                    {% if disk.bootable %}
+                    {% if disk['disk'].bootable %}
                     <CreatePartitions>
                         <CreatePartition wcm:action="add">
                             <Order>1</Order>
@@ -30,7 +30,7 @@
                     </CreatePartitions>
                     <ModifyPartitions>
                         <ModifyPartition wcm:action="add">
-                            <Letter>{{ disk.drive_letter }}</Letter>
+                            <Letter>{{ disk['disk'].drive_letter }}</Letter>
                             <PartitionID>2</PartitionID>
                             <Order>1</Order>
                         </ModifyPartition>
