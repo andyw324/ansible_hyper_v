@@ -1,4 +1,113 @@
-This is a test template file
-here we will print {{ stuff }}
-hostname: {{ hostname }}
-ip address: {{ ip_address }}
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SetupUILanguage>
+                <UILanguage>en-US</UILanguage>
+            </SetupUILanguage>
+            <InputLocale>en-GB</InputLocale>
+            <SystemLocale>en-GB</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-GB</UserLocale>
+        </component>
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DiskConfiguration>
+[[--DiskConfig--]]
+                {% for disk in disks %}
+                <Disk wcm:action="add">
+                    {% if disk.bootable %}
+                    <CreatePartitions>
+                        <CreatePartition wcm:action="add">
+                            <Order>1</Order>
+                            <Size>350</Size>
+                            <Type>EFI</Type>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Extend>true</Extend>
+                            <Order>2</Order>
+                            <Type>Primary</Type>
+                        </CreatePartition>
+                    </CreatePartitions>
+                    <ModifyPartitions>
+                        <ModifyPartition wcm:action="add">
+                            <Letter>{{ disk.drive_letter }}</Letter>
+                            <PartitionID>2</PartitionID>
+                            <Order>1</Order>
+                        </ModifyPartition>
+                    </ModifyPartitions>
+                        
+                    {% else %}
+
+                    {% endif %}
+                    <DiskID>{{ loop.index0 }}</DiskID>
+                    <WillWipeDisk>true</WillWipeDisk>
+                </Disk>
+                {% endfor %}
+
+
+[[]]
+
+            </DiskConfiguration>
+            <ImageInstall>
+                <OSImage>
+                    <InstallFrom>
+                        <MetaData wcm:action="add">
+                            <Key>/IMAGE/NAME</Key>
+                            <Value>Windows Server 2012 R2 SERVERSTANDARD</Value>
+                        </MetaData>
+                    </InstallFrom>
+                    <InstallTo>
+                        <DiskID>0</DiskID>
+                        <PartitionID>2</PartitionID>
+                    </InstallTo>
+                    <InstallToAvailablePartition>false</InstallToAvailablePartition>
+                    <WillShowUI>OnError</WillShowUI>
+                </OSImage>
+            </ImageInstall>
+            <UserData>
+                <ProductKey>
+                    <WillShowUI>OnError</WillShowUI>
+                </ProductKey>
+                <AcceptEula>true</AcceptEula>
+                <FullName>[[--FullName--]]</FullName>
+                <Organization>[[--OrganisationName--]]</Organization>
+            </UserData>
+        </component>
+    </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ComputerName>[[--ComputerName--]]</ComputerName>
+            <TimeZone>GMT Standard Time</TimeZone>
+            <RegisteredOrganization>[[--RegOrganisationName--]]</RegisteredOrganization>
+        </component>
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <RunSynchronous>
+[[--RunSyncSpecializePass--]]
+            </RunSynchronous>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <AutoLogon>
+                <Password>
+                    <Value>[[--AutoLoginPwd--]]</Value>
+                    <PlainText>[[--AutoLoginPlainText--]]</PlainText>
+                </Password>
+                <Enabled>true</Enabled>
+                <LogonCount>3</LogonCount>
+                <Username>[[--AdminUserName--]]</Username>
+            </AutoLogon>
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>[[--AdminPwd--]]</Value>
+                    <PlainText>[[--AdminPwdPlainText--]]</PlainText>
+                </AdministratorPassword>
+            </UserAccounts>
+            <RegisteredOrganization>[[--RegOrganisationName--]]</RegisteredOrganization>
+            <FirstLogonCommands>
+[[--RunSyncOOBEPass--]]
+            </FirstLogonCommands>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim://abcd-laptop/users/abcd%20family%20admin/documents/useful%20downloads/images/windows%20server%202012%20r2/install.wim#Windows Server 2012 R2 SERVERSTANDARD" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
