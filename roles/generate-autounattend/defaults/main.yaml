@@ -61,4 +61,4 @@ disks:
       vhdx_path: 'C:\hyper-v\backup.vhdx'
 
 
--vhdPathArray @(($vhdPath + "\boot.vhdx"),($vhdPath + "\install.vhdx"),($vhdPath + "\data.vhdx"),($vhdPath + "\logs.vhdx"),($vhdPath + "\temp.vhdx"),($vhdPath + "\backup.vhdx")) `
+# -vhdPathArray @(($vhdPath + "\boot.vhdx"),($vhdPath + "\install.vhdx"),($vhdPath + "\data.vhdx"),($vhdPath + "\logs.vhdx"),($vhdPath + "\temp.vhdx"),($vhdPath + "\backup.vhdx")) `
