@@ -13,9 +13,9 @@
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DiskConfiguration>
 [[--DiskConfig--]]
-                {% for disk in disks %}
+            {% for disk in disks %}
                 <Disk wcm:action="add">
-                    {% if disk.bootable %}
+                {% if disk.bootable %}
                     <CreatePartitions>
                         <CreatePartition wcm:action="add">
                             <Order>1</Order>
@@ -37,11 +37,11 @@
                     </ModifyPartitions>
                         
 
-                    {% endif %}
+                {% endif %}
                     <DiskID>{{ loop.index0 }}</DiskID>
                     <WillWipeDisk>true</WillWipeDisk>
                 </Disk>
-                {% endfor %}
+            {% endfor %}
 
 
 [[]]
