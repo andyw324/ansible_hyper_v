@@ -5,60 +5,54 @@ ip_address: 10.0.1.3
 
 
 disks:
-  - disk:
-      label: OS
-      size: 50GB
-      block_size: 32MB
-      sector_size: 512
-      allocation_unit_size: 4KB
-      drive_letter: C
-      bootable: true
-      vhdx_path: 'C:\hyper-v\boot.vhdx'
-  - disk:
-      label: InstallData
-      size: 10GB
-      block_size: 32MB
-      sector_size: 512
-      allocation_unit_size: 64KB
-      drive_letter: I
-      bootable: false
-      vhdx_path: 'C:\hyper-v\install.vhdx'
-  - disk:
-      label: Data
-      size: 5GB
-      block_size: 32MB
-      sector_size: 512
-      allocation_unit_size: 64KB
-      drive_letter: D
-      bootable: false
-      vhdx_path: 'C:\hyper-v\data.vhdx'
-  - disk:
-      label: Logs
-      size: 5GB
-      block_size: 32MB
-      sector_size: 512
-      allocation_unit_size: 4KB
-      drive_letter: L
-      bootable: false
-      vhdx_path: 'C:\hyper-v\logs.vhdx'
-  - disk:
-      label: TempDB
-      size: 5GB
-      block_size: 32MB
-      sector_size: 512
-      allocation_unit_size: 64KB
-      drive_letter: E
-      bootable: false
-      vhdx_path: 'C:\hyper-v\tempdb.vhdx'
-  - disk:
-      label: Backup
-      size: 5GB
-      block_size: 32MB
-      sector_size: 512
-      allocation_unit_size: 64KB
-      drive_letter: F
-      bootable: false
-      vhdx_path: 'C:\hyper-v\backup.vhdx'
+  - label: OS
+    size: 50GB
+    block_size: 32MB
+    sector_size: 512
+    allocation_unit_size: 4KB
+    drive_letter: C
+    bootable: true
+    vhdx_path: 'C:\hyper-v\boot.vhdx'
+  - label: InstallData
+    size: 10GB
+    block_size: 32MB
+    sector_size: 512
+    allocation_unit_size: 64KB
+    drive_letter: I
+    bootable: false
+    vhdx_path: 'C:\hyper-v\install.vhdx'
+  - label: Data
+    size: 5GB
+    block_size: 32MB
+    sector_size: 512
+    allocation_unit_size: 64KB
+    drive_letter: D
+    bootable: false
+    vhdx_path: 'C:\hyper-v\data.vhdx'
+  - label: Logs
+    size: 5GB
+    block_size: 32MB
+    sector_size: 512
+    allocation_unit_size: 4KB
+    drive_letter: L
+    bootable: false
+    vhdx_path: 'C:\hyper-v\logs.vhdx'
+  - label: TempDB
+    size: 5GB
+    block_size: 32MB
+    sector_size: 512
+    allocation_unit_size: 64KB
+    drive_letter: E
+    bootable: false
+    vhdx_path: 'C:\hyper-v\tempdb.vhdx'
+  - label: Backup
+    size: 5GB
+    block_size: 32MB
+    sector_size: 512
+    allocation_unit_size: 64KB
+    drive_letter: F
+    bootable: false
+    vhdx_path: 'C:\hyper-v\backup.vhdx'
 
 autorun_scripts:
   - script: 
