@@ -10,7 +10,7 @@
 - name: create template file
   template:
     src: autounattend.j2
-    dest: C:\autounattend.out
+    dest: C:\autounattend.xml
 # - name: create vhdx
 #   win_command: PowerShell New-VHD -Path {{ item['disk'].vhdx_path }} -BlockSizeBytes {{ item['disk'].block_size }} -LogicalSectorSizeBytes {{ item['disk'].sector_size }} -SizeBytes {{ item['disk'].size }}
 #   with_items: "{{ disks }}"
