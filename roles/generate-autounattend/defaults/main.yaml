@@ -13,6 +13,7 @@ disks:
       allocation_unit_size: 4KB
       drive_letter: C
       bootable: true
+      vhdx_path: 'C:\hyper-v\boot.vhdx'
   - disk:
       label: InstallData
       size: 10GB
@@ -21,6 +22,7 @@ disks:
       allocation_unit_size: 64KB
       drive_letter: I
       bootable: false
+      vhdx_path: 'C:\hyper-v\install.vhdx'
   - disk:
       label: Data
       size: 5GB
@@ -29,6 +31,7 @@ disks:
       allocation_unit_size: 64KB
       drive_letter: D
       bootable: false
+      vhdx_path: 'C:\hyper-v\data.vhdx'
   - disk:
       label: Logs
       size: 5GB
@@ -37,6 +40,7 @@ disks:
       allocation_unit_size: 4KB
       drive_letter: L
       bootable: false
+      vhdx_path: 'C:\hyper-v\logs.vhdx'
   - disk:
       label: TempDB
       size: 5GB
@@ -45,6 +49,7 @@ disks:
       allocation_unit_size: 64KB
       drive_letter: E
       bootable: false
+      vhdx_path: 'C:\hyper-v\tempdb.vhdx'
   - disk:
       label: Backup
       size: 5GB
@@ -53,3 +58,7 @@ disks:
       allocation_unit_size: 64KB
       drive_letter: F
       bootable: false
+      vhdx_path: 'C:\hyper-v\backup.vhdx'
+
+
+-vhdPathArray @(($vhdPath + "\boot.vhdx"),($vhdPath + "\install.vhdx"),($vhdPath + "\data.vhdx"),($vhdPath + "\logs.vhdx"),($vhdPath + "\temp.vhdx"),($vhdPath + "\backup.vhdx")) `
