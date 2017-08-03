@@ -5,13 +5,13 @@
 #    patterns: 'SetupFile.vhdx'
 
 - debug:
-    var: item['disk'].label
+    var: item.value.label
   with_items: "{{ disks }}"
 - name: create template file
   template:
     src: autounattend.j2
     dest: C:\autounattend.out
-- name: create vhdx
-  win_command: PowerShell New-VHD -Path {{ item['disk'].vhdx_path }} -BlockSizeBytes {{ item['disk'].block_size }} -LogicalSectorSizeBytes {{ item['disk'].sector_size }} -SizeBytes {{ item['disk'].size }}
-  with_items: "{{ disks }}"
-        # Add-VMHardDiskDrive -VMName $VMName -Path $vhdPathArray[$i] -ControllerType SCSI -ControllerNumber 0 -ControllerLocation $i
+# - name: create vhdx
+#   win_command: PowerShell New-VHD -Path {{ item['disk'].vhdx_path }} -BlockSizeBytes {{ item['disk'].block_size }} -LogicalSectorSizeBytes {{ item['disk'].sector_size }} -SizeBytes {{ item['disk'].size }}
+#   with_items: "{{ disks }}"
+#         # Add-VMHardDiskDrive -VMName $VMName -Path $vhdPathArray[$i] -ControllerType SCSI -ControllerNumber 0 -ControllerLocation $i
