@@ -1,5 +1,5 @@
 ---
-vm_test: 'TestVM'
+vm_name: 'TestVM'
 full_name: NotDefined
 organisation_name: NotDefined
 default_admin_password: 'UABhAHMAcwB3AG8AcgBkADEAMgAzACEAQQBkAG0AaQBuAGkAcwB0AHIAYQB0AG8AcgBQAGEAcwBzAHcAbwByAGQA'
