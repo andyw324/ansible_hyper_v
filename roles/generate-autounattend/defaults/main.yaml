@@ -1,8 +1,12 @@
 ---
-stuff: testcase
-hostname: win2012server
-ip_address: 10.0.1.3
-
+vm_test: 'TestVM'
+full_name: NotDefined
+organisation_name: NotDefined
+default_admin_password: 'UABhAHMAcwB3AG8AcgBkADEAMgAzACEAQQBkAG0AaQBuAGkAcwB0AHIAYQB0AG8AcgBQAGEAcwBzAHcAbwByAGQA'
+default_auto_logon_password: 'UABhAHMAcwB3AG8AcgBkADEAMgAzACEAUABhAHMAcwB3AG8AcgBkAA=='
+local_admin_password: default_admin_password
+auto_logon_password: default_auto_logon_password
+admin_user: 'Administrator'
 
 disks:
   - label: OS
@@ -55,6 +59,12 @@ disks:
     vhdx_path: 'C:\hyper-v\backup.vhdx'
 
 autorun_scripts:
-  - script: 
-
+  - script: 'Some script'
+    pass: specialise
+    description: 'some description'
+    requires_user_input: false
+  - script: 'Some script'
+    pass: oobe
+    description: 'some description'
+    requires_user_input: false
 # -vhdPathArray @(($vhdPath + "\boot.vhdx"),($vhdPath + "\install.vhdx"),($vhdPath + "\data.vhdx"),($vhdPath + "\logs.vhdx"),($vhdPath + "\temp.vhdx"),($vhdPath + "\backup.vhdx")) `

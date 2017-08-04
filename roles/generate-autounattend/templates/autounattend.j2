@@ -12,7 +12,6 @@
         </component>
         <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <DiskConfiguration>
-[[--DiskConfig--]]
             {% for disk in disks %}
                 <Disk wcm:action="add">
                 {% if disk.bootable %}
@@ -34,18 +33,12 @@
                             <PartitionID>2</PartitionID>
                             <Order>1</Order>
                         </ModifyPartition>
-                    </ModifyPartitions>
-                        
-
+                    </ModifyPartitions>                        
                 {% endif %}
                     <DiskID>{{ loop.index0 }}</DiskID>
                     <WillWipeDisk>true</WillWipeDisk>
                 </Disk>
             {% endfor %}
-
-
-[[]]
-
             </DiskConfiguration>
             <ImageInstall>
                 <OSImage>
@@ -68,43 +61,70 @@
                     <WillShowUI>OnError</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
-                <FullName>[[--FullName--]]</FullName>
-                <Organization>[[--OrganisationName--]]</Organization>
+                <FullName>{{ full_name }}</FullName>
+                <Organization>{{ organisation_name }}</Organization>
             </UserData>
         </component>
     </settings>
     <settings pass="specialize">
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <ComputerName>[[--ComputerName--]]</ComputerName>
+            <ComputerName>{{ vm_name }}</ComputerName>
             <TimeZone>GMT Standard Time</TimeZone>
-            <RegisteredOrganization>[[--RegOrganisationName--]]</RegisteredOrganization>
+            <RegisteredOrganization>{{ organisation_name }}</RegisteredOrganization>
         </component>
         <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <RunSynchronous>
-[[--RunSyncSpecializePass--]]
+            {% for script in scripts %}
+                {% if script.pass|string() == "specialize" %}
+                <SynchronousCommand wcm:action="add">
+                    <Description>{{ script.description }}</Description>
+                    <CommandLine>{{ script.script }}</CommandLine>
+                    <Order>{{ loop.index }}</Order>
+                    <RequiresUserInput>{{ script.requires_user_input}}</RequiresUserInput>
+                </SynchronousCommand>
+                {% endif &}
+            {% endfor %}
             </RunSynchronous>
         </component>
+        <component name="Microsoft-Windows-TCPIP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     </settings>
     <settings pass="oobeSystem">
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <AutoLogon>
                 <Password>
-                    <Value>[[--AutoLoginPwd--]]</Value>
-                    <PlainText>[[--AutoLoginPlainText--]]</PlainText>
+                    <Value>{{ auto_logon_password }}</Value>
+                    {% if auto_logon_password|string() == default_auto_logon_password|string() %}
+                    <PlainText>False</PlainText>
+                    {% else %}
+                    <PlainText>True</PlainText>
+                    {% endif %}
                 </Password>
                 <Enabled>true</Enabled>
                 <LogonCount>3</LogonCount>
-                <Username>[[--AdminUserName--]]</Username>
+                <Username>{{ admin_user }}</Username>
             </AutoLogon>
             <UserAccounts>
                 <AdministratorPassword>
-                    <Value>[[--AdminPwd--]]</Value>
-                    <PlainText>[[--AdminPwdPlainText--]]</PlainText>
+                    <Value>{{ local_admin_password }}</Value>
+                    {% if local_admin_password|string() == default_admin_password|string() %}
+                    <PlainText>False</PlainText>
+                    {% else %}
+                    <PlainText>True</PlainText>
+                    {% endif %}
                 </AdministratorPassword>
             </UserAccounts>
-            <RegisteredOrganization>[[--RegOrganisationName--]]</RegisteredOrganization>
+            <RegisteredOrganization>{{ organisation_name }}</RegisteredOrganization>
             <FirstLogonCommands>
-[[--RunSyncOOBEPass--]]
+            {% for script in scripts %}
+                {% if script.pass|string() == "oobe" %}
+                <SynchronousCommand wcm:action="add">
+                    <Description>{{ script.description }}</Description>
+                    <CommandLine>{{ script.script }}</CommandLine>
+                    <Order>{{ loop.index }}</Order>
+                    <RequiresUserInput>{{ script.requires_user_input}}</RequiresUserInput>
+                </SynchronousCommand>
+                {% endif &}
+            {% endfor %}
             </FirstLogonCommands>
         </component>
     </settings>
