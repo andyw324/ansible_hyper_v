@@ -7,10 +7,10 @@
 - debug:
     var: item.label
   with_items: "{{ disks }}"
-- name: create template file
-  template:
-    src: autounattend.j2
-    dest: C:\autounattend.xml
+# - name: create template file
+#   template:
+#     src: autounattend.j2
+#     dest: C:\autounattend.xml
 - name: create vhdx
   win_command: PowerShell New-VHD -Path {{ item.vhdx_path }} -BlockSizeBytes {{ item.block_size }} -LogicalSectorSizeBytes {{ item.sector_size }} -SizeBytes {{ item.size }}
   with_items: "{{ disks }}"
