@@ -16,7 +16,7 @@ disks:
     allocation_unit_size: 4KB
     drive_letter: C
     bootable: true
-    vhdx_path: 'C:\hyper-v\boot.vhdx'
+    vhdx_path: 'C:\hyper-v\{{ vm_name }}\boot.vhdx'
   - label: InstallData
     size: 10GB
     block_size: 32MB
@@ -24,7 +24,7 @@ disks:
     allocation_unit_size: 64KB
     drive_letter: I
     bootable: false
-    vhdx_path: 'C:\hyper-v\install.vhdx'
+    vhdx_path: 'C:\hyper-v\{{ vm_name }}\install.vhdx'
   - label: Data
     size: 5GB
     block_size: 32MB
@@ -32,7 +32,7 @@ disks:
     allocation_unit_size: 64KB
     drive_letter: D
     bootable: false
-    vhdx_path: 'C:\hyper-v\data.vhdx'
+    vhdx_path: 'C:\hyper-v\{{ vm_name }}\data.vhdx'
   - label: Logs
     size: 5GB
     block_size: 32MB
@@ -40,7 +40,7 @@ disks:
     allocation_unit_size: 4KB
     drive_letter: L
     bootable: false
-    vhdx_path: 'C:\hyper-v\logs.vhdx'
+    vhdx_path: 'C:\hyper-v\{{ vm_name }}\logs.vhdx'
   - label: TempDB
     size: 5GB
     block_size: 32MB
@@ -48,7 +48,7 @@ disks:
     allocation_unit_size: 64KB
     drive_letter: E
     bootable: false
-    vhdx_path: 'C:\hyper-v\tempdb.vhdx'
+    vhdx_path: 'C:\hyper-v\{{ vm_name }}\tempdb.vhdx'
   - label: Backup
     size: 5GB
     block_size: 32MB
@@ -56,7 +56,7 @@ disks:
     allocation_unit_size: 64KB
     drive_letter: F
     bootable: false
-    vhdx_path: 'C:\hyper-v\backup.vhdx'
+    vhdx_path: 'C:\hyper-v\{{ vm_name }}\backup.vhdx'
 
 autorun_scripts:
   - script: 'Some script'
